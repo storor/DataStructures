@@ -1,4 +1,4 @@
-package ua.epam.training.mymaps;
+package ua.redric.training.mymaps;
 
 import java.util.HashMap;
 import java.util.Iterator;

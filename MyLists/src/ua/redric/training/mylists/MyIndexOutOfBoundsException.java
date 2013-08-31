@@ -1,4 +1,4 @@
-package ua.epam.training.mylists;
+package ua.redric.training.mylists;
 
 /**
  * Exception which throws when index is lewer then 0 or biger then size of array

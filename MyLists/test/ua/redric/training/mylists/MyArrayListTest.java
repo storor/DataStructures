@@ -1,11 +1,11 @@
-package ua.epam.training.mylists;
+package ua.redric.training.mylists;
 
 import java.util.Iterator;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static ua.epam.training.tests.helper.MyTestHelper.*;
+import static ua.redric.training.tests.helper.MyTestHelper.*;
 
 /**
  * Test methods of MyArrayList class

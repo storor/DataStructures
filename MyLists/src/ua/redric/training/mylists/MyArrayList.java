@@ -1,4 +1,4 @@
-package ua.epam.training.mylists;
+package ua.redric.training.mylists;
 
 import java.util.Iterator;
 import java.util.RandomAccess;

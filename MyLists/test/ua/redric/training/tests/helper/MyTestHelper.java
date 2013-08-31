@@ -1,7 +1,7 @@
-package ua.epam.training.tests.helper;
+package ua.redric.training.tests.helper;
 
-import ua.epam.training.mylists.MyList;
-import ua.epam.training.mymaps.MyMap;
+import ua.redric.training.mylists.MyList;
+import ua.redric.training.mymaps.MyMap;
 
 /**
  * Class helper methods of which fill collections by some elements 

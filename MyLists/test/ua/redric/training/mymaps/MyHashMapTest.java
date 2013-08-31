@@ -2,32 +2,49 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.epam.training.mymaps;
+package ua.redric.training.mymaps;
 
 import java.util.Iterator;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static ua.epam.training.tests.helper.MyTestHelper.*;
+import static ua.redric.training.tests.helper.MyTestHelper.*;
 
 /**
  *
  * @author Сергей
  */
-public class MyTreeMapTest {
-
-    MyTreeMap instance;
-
+public class MyHashMapTest {
+    private MyHashMap instance;
+   
     @Before
     public void setUp() {
-        instance = new MyTreeMap();
+        instance = new MyHashMap();
     }
-
+    
     @After
     public void tearDown() {
         instance = null;
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="constructor">
+    /**
+     * Test of constructor, of class MyHashMap.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor_initialCapacityAs1ParamLessThenZero_IllegalArgumentExceptionTrows() {
+        instance = new MyHashMap(-1, 1);
+    }
+    
+    /**
+     * Test of constructor, of class MyHashMap.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor_loadFactorAs2ParamLessThenZero_IllegalArgumentExceptionTrows() {
+        instance = new MyHashMap(10, -1);
+    }
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="clear">
     /**
@@ -41,7 +58,7 @@ public class MyTreeMapTest {
         int result = instance.size();
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of clear method, of class MyHashMap.
      */
@@ -60,37 +77,37 @@ public class MyTreeMapTest {
      */
     @Test
     public void testContainsKey_MapContainsKey_True() {
-        String key = key2;
+        Object key = key2;
         putFourValues(instance);
         boolean expResult = true;
         boolean result = instance.containsKey(key);
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of containsKey method, of class MyHashMap.
      */
     @Test
     public void testContainsKey_MapNotContainsKey_False() {
-        String key = "E";
+        Object key = "E";
         putFourValues(instance);
         boolean expResult = false;
         boolean result = instance.containsKey(key);
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of containsKey method, of class MyHashMap.
      */
     @Test
     public void testContainsKey_MapHasNoElements_False() {
-        String key = "E";
+        Object key = "E";
         boolean expResult = false;
         boolean result = instance.containsKey(key);
         assertEquals(expResult, result);
     }
     //</editor-fold>
-
+    
     //<editor-fold defaultstate="collapsed" desc="containsValue">
     /**
      * Test of containsValue method, of class MyHashMap.
@@ -103,8 +120,8 @@ public class MyTreeMapTest {
         boolean result = instance.containsValue(value);
         assertEquals(expResult, result);
     }
-
-    /**
+    
+     /**
      * Test of containsValue method, of class MyHashMap.
      */
     @Test
@@ -115,8 +132,8 @@ public class MyTreeMapTest {
         boolean result = instance.containsValue(value);
         assertEquals(expResult, result);
     }
-
-    /**
+    
+     /**
      * Test of containsValue method, of class MyHashMap.
      */
     @Test
@@ -134,26 +151,38 @@ public class MyTreeMapTest {
      */
     @Test
     public void testGet_MapHasKey() {
-        String key = key2;
+        Object key = key2;
         Object expResult = val2;
         putFourValues(instance);
         Object result = instance.get(key);
         assertEquals(expResult, result);
     }
-
+    
+    /**
+     * Test of get method, of class MyHashMap.
+     */
+    @Test
+    public void testGet_MapWithManyElementsMapHasKey() {
+        Object key = key2;
+        Object expResult = val2;
+        putTwentyValues(instance);
+        Object result = instance.get(key);
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of get method, of class MyHashMap.
      */
     @Test
     public void testGet_MapHasNotKey_Null() {
-        String key = "E";
+        Object key = "E";
         Object expResult = null;
         putFourValues(instance);
         Object result = instance.get(key);
         assertEquals(expResult, result);
     }
     //</editor-fold>
-
+    
     //<editor-fold defaultstate="collapsed" desc="isEmpty">
     /**
      * Test of isEmpty method, of class MyHashMap.
@@ -165,7 +194,7 @@ public class MyTreeMapTest {
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of isEmpty method, of class MyHashMap.
      */
@@ -176,14 +205,14 @@ public class MyTreeMapTest {
         assertEquals(expResult, result);
     }
     //</editor-fold>
-
+    
     //<editor-fold defaultstate="collapsed" desc="put">
     /**
      * Test of put method, of class MyHashMap.
      */
     @Test
     public void testPut_MapHasNotKey_SizeIncreased() {
-        String key = "E";
+        Object key = "E";
         Object value = 5;
         putFourValues(instance);
         Object expResult = 5;
@@ -191,13 +220,13 @@ public class MyTreeMapTest {
         Object result = instance.size();
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of put method, of class MyHashMap.
      */
     @Test
-    public void testPut_MapKey_SizeDoesNotChange() {
-        String key = "A";
+    public void testPut_MapHasKey_SizeDoesNotChange() {
+        Object key = "A";
         Object value = 5;
         putFourValues(instance);
         Object expResult = 4;
@@ -205,51 +234,31 @@ public class MyTreeMapTest {
         Object result = instance.size();
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of put method, of class MyHashMap.
      */
     @Test
     public void testPut_MapHasNotKey_Null() {
-        String key = "E";
+        Object key = "E";
         Object value = 5;
         putFourValues(instance);
         Object expResult = null;
         Object result = instance.put(key, value);
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of put method, of class MyHashMap.
      */
     @Test
-    public void testPut_MapHasKey_OldValue() {
-        String key = "A";
+    public void testPut_MapKey_OldValue() {
+        Object key = "A";
         Object value = 5;
         putFourValues(instance);
         Object expResult = val1;
         Object result = instance.put(key, value);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of put method, of class MyHashMap.
-     */
-    @Test
-    public void testPut_EntriesSortedByKeys() {
-        instance.put(key4, val4);
-        instance.put(key2, val2);
-        instance.put(key1, val1);
-        instance.put(key3, val3);
-        Iterator iter = instance.entryIterator();
-        Object[] expected = new Object[]{ val1,val2,val3,val4};
-        Object[] result = new Object[]{
-            ((MyTreeMap.SimpleEntry)iter.next()).value,
-             ((MyTreeMap.SimpleEntry)iter.next()).value,
-              ((MyTreeMap.SimpleEntry)iter.next()).value,
-               ((MyTreeMap.SimpleEntry)iter.next()).value
-        };
-        assertArrayEquals(expected, result);
     }
     //</editor-fold>
 
@@ -259,63 +268,41 @@ public class MyTreeMapTest {
      */
     @Test
     public void testRemove_MapHasNotKey_Null() {
-        String key = "E";
+        Object key = "E";
         putFourValues(instance);
         Object expResult = null;
         Object result = instance.remove(key);
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of remove method, of class MyHashMap.
      */
     @Test
     public void testRemove_MapHasKey_Value() {
-        String key = key2;
+        Object key = key2;
         putFourValues(instance);
         Object expResult = val2;
         Object result = instance.remove(key);
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of remove method, of class MyHashMap.
      */
     @Test
     public void testRemove_MapHasKey_SizeDecreased() {
-        String key = key2;
+        Object key = key2;
         putFourValues(instance);
         Object expResult = 3;
         instance.remove(key);
         Object result = instance.size();
         assertEquals(expResult, result);
     }
-    
-    
-    /**
-     * Test of remove method, of class MyHashMap.
-     */
-    @Test
-    public void testRemove_EntriesSortedByKeys() {
-        instance.put(key4, val4);
-        instance.put(key2, val2);
-        instance.put(key1, val1);
-        instance.put(key3, val3);
-        instance.remove(key1);
-        Iterator iter = instance.entryIterator();
-        Object[] expected = new Object[]{ val2,val3,val4};
-        Object[] result = new Object[]{
-            ((MyTreeMap.SimpleEntry)iter.next()).value,
-             ((MyTreeMap.SimpleEntry)iter.next()).value,
-              ((MyTreeMap.SimpleEntry)iter.next()).value,
-        };
-        assertArrayEquals(expected, result);
-    }
-    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="size">
-    /**
+     /**
      * Test of size method, of class MyHashMap.
      */
     @Test
@@ -325,8 +312,7 @@ public class MyTreeMapTest {
         int result = instance.size();
         assertEquals(expResult, result);
     }
-
-    /**
+     /**
      * Test of size method, of class MyHashMap.
      */
     @Test
@@ -336,7 +322,7 @@ public class MyTreeMapTest {
         assertEquals(expResult, result);
     }
     //</editor-fold>
-
+   
     //<editor-fold defaultstate="collapsed" desc="entryIterator">
     /**
      * Test of iterator method, of class MyHashMap.
@@ -370,7 +356,7 @@ public class MyTreeMapTest {
         instance.put(key1, val1);
         int expResult = val1;
         Iterator iter = instance.entryIterator();
-        int result = (int) ((MyTreeMap.SimpleEntry) iter.next()).value;
+        int result = (int) ((MyHashMap.SimpleEntry)iter.next()).value;
         assertEquals(expResult, result);
     }
 
@@ -385,4 +371,5 @@ public class MyTreeMapTest {
         assertEquals(expResult, result);
     }
     //</editor-fold>
+
 }

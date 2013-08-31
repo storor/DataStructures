@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.epam.training.tests;
+package ua.redric.training.tests;
 
 import java.util.Iterator;
 import java.util.Random;
-import ua.epam.training.mylists.*;
-import ua.epam.training.mymaps.*;
+import ua.redric.training.mylists.*;
+import ua.redric.training.mymaps.*;
 
 /**
  * Testing our own collections and maps

@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.epam.training.mylists;
+package ua.redric.training.mylists;
 
 import java.util.Comparator;
 import java.util.RandomAccess;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import static ua.epam.training.tests.helper.MyTestHelper.*;
+import static ua.redric.training.tests.helper.MyTestHelper.*;
 
 /**
  * Test methods of MyCollections class
