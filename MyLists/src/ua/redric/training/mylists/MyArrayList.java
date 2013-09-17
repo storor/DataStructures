@@ -1,5 +1,6 @@
 package ua.redric.training.mylists;
 
+import java.util.*;
 import java.util.Iterator;
 import java.util.RandomAccess;
 
@@ -97,6 +98,10 @@ public class MyArrayList<T> implements MyList<T>, RandomAccess {
 
     }
 
+    public Object[] getArray(){
+        return Collections.unmodifiableList(Arrays.asList(this.dataArray)).toArray();
+    }
+    
     @Override
     public T get(int index) {
         if (index < size && index >= 0) {
